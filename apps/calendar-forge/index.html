@@ -3,231 +3,249 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calendar Forge | Print a better month</title>
-  <meta name="description" content="Build a clean printable calendar for any month, with regional holidays, notes and instant PDF-ready layouts.">
+  <title>Free Printable Calendar Maker | Calendar Forge</title>
+  <meta name="description" content="Create a free printable monthly calendar with regional public holidays. Print it or download an editable Word document in seconds.">
   <link rel="canonical" href="https://calendarforge.stream/">
-  <meta name="theme-color" content="#f6f7f2">
-  <meta property="og:title" content="Calendar Forge | Print a better month">
-  <meta property="og:description" content="A focused calendar maker for work, home and planning ahead.">
+  <meta name="theme-color" content="#f4f5f0">
+  <meta property="og:title" content="Free Printable Calendar Maker | Calendar Forge">
+  <meta property="og:description" content="Create a clean monthly calendar, then print it or download it as a Word document. No account needed.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://calendarforge.stream/">
   <style>
     :root {
-      --paper: #f6f7f2;
-      --paper-2: #eef1e9;
-      --ink: #1f2a26;
-      --muted: #65716a;
-      --line: #d8dfd6;
-      --accent: #1f6f52;
-      --accent-dark: #174b39;
-      --accent-soft: #dcebe2;
-      --white: #ffffff;
-      --shadow: 0 18px 50px rgba(30, 56, 43, .10);
-      --radius: 12px;
+      --canvas: #f4f5f0;
+      --surface: #ffffff;
+      --surface-soft: #f8faf6;
+      --ink: #15231e;
+      --muted: #617069;
+      --line: #d9e1d9;
+      --line-strong: #c5d1c6;
+      --accent: #176746;
+      --accent-dark: #0d4e35;
+      --accent-soft: #dcece2;
+      --shadow: 0 24px 60px rgba(0, 0, 0, .10);
+      --radius: 10px;
+    }
+    body[data-template="editorial"] {
+      --canvas: #f6f1ec;
+      --surface-soft: #fbf8f4;
+      --ink: #2c201b;
+      --muted: #766a63;
+      --line: #e2d7cf;
+      --line-strong: #cdbdb2;
+      --accent: #a34d37;
+      --accent-dark: #713426;
+      --accent-soft: #f2ded5;
+    }
+    body[data-template="color-pop"] {
+      --canvas: #f5f3ec;
+      --surface-soft: #fbfaf5;
+      --ink: #15262d;
+      --muted: #64727a;
+      --line: #d9e0dd;
+      --line-strong: #bfceca;
+      --accent: #ce4b36;
+      --accent-dark: #963326;
+      --accent-soft: #f8ddd5;
+    }
+    body[data-template="notes"] {
+      --canvas: #f2f5f8;
+      --surface-soft: #f7f9fb;
+      --ink: #18283a;
+      --muted: #607082;
+      --line: #d7e0e9;
+      --line-strong: #bdcad7;
+      --accent: #315d94;
+      --accent-dark: #234875;
+      --accent-soft: #dce8f5;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
-      background: var(--paper);
-      font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      background: var(--canvas);
+      font-family: "Avenir Next", Avenir, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 15px;
       line-height: 1.5;
     }
-    body::selection { background: var(--accent); color: #fff; }
+    ::selection { color: #fff; background: var(--accent); }
     a { color: inherit; }
     button, select, input { font: inherit; }
     button { cursor: pointer; }
-    button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible {
-      outline: 3px solid #b2d1bf;
-      outline-offset: 3px;
-    }
-    .site-header {
-      height: 72px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(246, 247, 242, .92);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-    }
-    .header-inner, .main, .footer-inner {
-      width: min(1160px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-    .header-inner {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: -.03em;
-      font-size: 18px;
-    }
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 30px;
-      height: 30px;
-      color: #fff;
-      background: var(--accent);
-      border-radius: 9px;
-      font-size: 13px;
-      font-weight: 800;
-    }
-    .nav { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: 14px; }
+    button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid #acd2bb; outline-offset: 3px; }
+
+    .site-header { height: 68px; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--line); background: rgba(244, 245, 240, .94); backdrop-filter: blur(14px); }
+    .header-inner, .main, .footer-inner { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-size: 17px; font-weight: 800; letter-spacing: -.02em; text-decoration: none; }
+    .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; color: #fff; background: var(--accent); border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: .02em; }
+    .nav { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 13px; }
     .nav a { text-decoration: none; }
     .nav a:hover { color: var(--ink); }
-    .nav .nav-action { color: var(--accent-dark); font-weight: 700; }
-    .main { padding: 58px 0 76px; }
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, .84fr) minmax(460px, 1.16fr);
-      gap: 68px;
-      align-items: center;
-      min-height: 405px;
-      margin-bottom: 66px;
-    }
-    .hero-copy h1 {
-      max-width: 520px;
-      margin: 0 0 19px;
-      font-size: clamp(42px, 5.4vw, 72px);
-      line-height: .98;
-      letter-spacing: -.035em;
-      font-weight: 800;
-    }
+    .nav .nav-action { color: var(--accent-dark); font-weight: 750; }
+
+    .main { padding: 54px 0 82px; }
+    .hero { display: grid; grid-template-columns: minmax(260px, .72fr) minmax(560px, 1.28fr); gap: 74px; align-items: center; padding: 22px 0 62px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { width: 20px; height: 2px; content: ""; background: var(--accent); }
+    .hero-copy h1 { max-width: 470px; margin: 0 0 18px; font-size: 54px; line-height: 1.02; letter-spacing: -.035em; font-weight: 800; }
     .hero-copy h1 span { color: var(--accent); }
-    .hero-copy p { max-width: 425px; margin: 0 0 28px; color: var(--muted); font-size: 17px; line-height: 1.55; }
-    .hero-actions { display: flex; align-items: center; gap: 14px; }
-    .button {
-      min-height: 44px;
-      border: 1px solid transparent;
-      border-radius: 9px;
-      padding: 0 17px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      font-weight: 750;
-      text-decoration: none;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
+    .hero-copy p { max-width: 420px; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+    .proof-row { display: flex; flex-wrap: wrap; gap: 9px 18px; margin-top: 28px; color: var(--muted); font-size: 12px; }
+    .proof-row span { display: inline-flex; align-items: center; gap: 7px; }
+    .proof-row i { width: 7px; height: 7px; display: inline-block; border-radius: 50%; background: var(--accent); }
+
+    .builder { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .builder-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 17px 20px; border-bottom: 1px solid var(--line); background: var(--surface-soft); }
+    .builder-bar strong { font-size: 14px; }
+    .builder-bar small { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .builder-controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; padding: 20px; border-bottom: 1px solid var(--line); }
+    .field { display: grid; gap: 7px; min-width: 0; }
+    .field label { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .field select { width: 100%; height: 42px; padding: 0 11px; color: var(--ink); border: 1px solid var(--line-strong); border-radius: 7px; background: var(--canvas); }
+    .checkline { display: flex; align-items: center; align-self: end; min-height: 42px; gap: 8px; color: var(--muted); font-size: 13px; }
+    .checkline input { width: 16px; height: 16px; accent-color: var(--accent); }
+    .template-field { grid-column: 1 / -1; display: grid; gap: 9px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .template-field legend { padding: 0; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .template-help { margin: -2px 0 2px; color: var(--muted); font-size: 12px; }
+    .template-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+    .template-option { min-height: 58px; display: grid; grid-template-columns: 25px 1fr; align-items: center; gap: 9px; padding: 8px 10px; color: var(--ink); border: 1px solid var(--line-strong); border-radius: 7px; background: var(--surface); text-align: left; transition: border-color .18s ease, background .18s ease, transform .18s ease; }
+    .template-option:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .template-option:active { transform: translateY(1px); }
+    .template-option[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent-soft); }
+    .template-option[aria-pressed="true"] small { color: var(--ink); }
+    .template-option strong { display: block; font-size: 13px; }
+    .template-option small { display: block; margin-top: 1px; color: var(--muted); font-size: 11px; line-height: 1.2; }
+    .template-swatch { width: 25px; height: 35px; display: block; position: relative; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 4px; background: #fff; }
+    .template-swatch::before { position: absolute; top: 5px; left: 4px; right: 4px; height: 4px; content: ""; background: #176746; }
+    .template-swatch::after { position: absolute; top: 14px; left: 4px; right: 4px; height: 14px; content: ""; background: linear-gradient(#d9e1d9, #d9e1d9) 0 0 / 100% 1px no-repeat, linear-gradient(#d9e1d9, #d9e1d9) 0 5px / 100% 1px no-repeat, linear-gradient(#d9e1d9, #d9e1d9) 0 10px / 100% 1px no-repeat; }
+    .template-swatch.editorial::before { background: #a34d37; height: 7px; }
+    .template-swatch.editorial::after { background: linear-gradient(#e2d7cf, #e2d7cf) 0 0 / 100% 1px no-repeat, linear-gradient(#e2d7cf, #e2d7cf) 0 5px / 100% 1px no-repeat, linear-gradient(#e2d7cf, #e2d7cf) 0 10px / 100% 1px no-repeat; }
+    .template-swatch.color-pop::before { background: #ce4b36; }
+    .template-swatch.color-pop::after { background: linear-gradient(#f0c6b9, #f0c6b9) 0 0 / 100% 2px no-repeat, linear-gradient(#f0c6b9, #f0c6b9) 0 5px / 100% 2px no-repeat, linear-gradient(#f0c6b9, #f0c6b9) 0 10px / 100% 2px no-repeat; }
+    .template-swatch.notes::before { background: #315d94; }
+    .template-swatch.notes::after { background: linear-gradient(#c4d5e7, #c4d5e7) 0 0 / 100% 1px no-repeat, linear-gradient(#c4d5e7, #c4d5e7) 0 5px / 100% 1px no-repeat, linear-gradient(#c4d5e7, #c4d5e7) 0 10px / 100% 1px no-repeat; }
+
+    .calendar-sheet { margin: 0; padding: 26px 27px 23px; background: var(--surface); }
+    .calendar-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 21px; }
+    .calendar-head h2 { margin: 0; color: var(--ink); font-size: 31px; line-height: 1; letter-spacing: -.035em; }
+    .calendar-head p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); overflow: hidden; border-top: 1px solid var(--line-strong); border-left: 1px solid var(--line-strong); }
+    .weekday, .day { border-right: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
+    .weekday { min-height: 31px; padding: 7px 8px; color: var(--muted); background: var(--canvas); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .day { position: relative; min-height: 67px; padding: 8px; background: #fff; }
+    .day.empty { background: var(--surface-soft); }
+    .day.weekend { background: color-mix(in srgb, var(--surface-soft) 72%, #fff); }
+    .day-number { font-size: 12px; font-weight: 800; }
+    .day.today .day-number { display: inline-grid; place-items: center; width: 24px; height: 24px; margin: -3px 0 0 -3px; color: #fff; border-radius: 50%; background: var(--accent); }
+    .day.holiday { background: #f4f9f4; }
+    .holiday-name { display: block; max-width: 100%; margin-top: 6px; overflow: hidden; color: var(--accent-dark); font-size: 9px; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
+    body[data-template="editorial"] .calendar-head h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: -.025em; }
+    body[data-template="editorial"] .weekday { background: #f3e5de; }
+    body[data-template="color-pop"] .weekday { color: var(--accent-dark); background: #fbe8dc; }
+    body[data-template="color-pop"] .day.holiday { background: #fff0d8; }
+    body[data-template="notes"] .day { min-height: 82px; }
+    body[data-template="notes"] .calendar-notes { display: block; }
+    .calendar-notes { display: none; margin-top: 17px; padding-top: 11px; border-top: 1px solid var(--line-strong); }
+    .calendar-notes strong { display: block; margin-bottom: 8px; color: var(--accent-dark); font-size: 12px; }
+    .calendar-notes span { display: block; height: 22px; border-bottom: 1px solid var(--line); }
+    .calendar-footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; color: var(--muted); font-size: 12px; }
+    .export-bar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 15px 20px; border-top: 1px solid var(--line); background: var(--surface-soft); }
+    .export-note { color: var(--muted); font-size: 12px; }
+    .export-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+    .button { min-height: 41px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 14px; border: 1px solid transparent; border-radius: 7px; font-size: 13px; font-weight: 750; text-decoration: none; transition: background .18s ease, border-color .18s ease, transform .18s ease; }
     .button:active { transform: translateY(1px); }
     .button-primary { color: #fff; background: var(--accent); }
     .button-primary:hover { background: var(--accent-dark); }
-    .button-secondary { color: var(--ink); border-color: var(--line); background: transparent; }
-    .button-secondary:hover { background: var(--white); border-color: #b7c5b9; }
-    .hero-meta { display: flex; gap: 18px; margin-top: 31px; color: var(--muted); font-size: 12px; }
-    .hero-meta span { display: inline-flex; align-items: center; gap: 7px; }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-    .builder {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .builder-top {
-      padding: 18px 21px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--line);
-      background: #fbfcf9;
-    }
-    .builder-top strong { font-size: 14px; }
-    .builder-top small { color: var(--muted); font-size: 12px; }
-    .builder-controls { padding: 19px 21px 21px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-bottom: 1px solid var(--line); }
-    .field { display: grid; gap: 6px; }
-    .field label { font-size: 11px; color: var(--muted); font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
-    .field select, .field input { width: 100%; height: 39px; border: 1px solid var(--line); border-radius: 7px; padding: 0 10px; color: var(--ink); background: var(--paper); }
-    .checkline { display: flex; align-items: center; gap: 8px; align-self: end; height: 39px; color: var(--muted); font-size: 13px; }
-    .checkline input { accent-color: var(--accent); }
-    .calendar-wrap { padding: 22px 23px 24px; }
-    .calendar-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
-    .calendar-head h2 { margin: 0; font-size: 28px; letter-spacing: -.045em; line-height: 1; }
-    .calendar-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-    .weekday, .day { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .weekday { min-height: 29px; padding: 7px 8px; color: var(--muted); background: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .day { min-height: 58px; padding: 7px 8px; position: relative; background: #fff; }
-    .day.empty { background: #fbfcfa; }
-    .day-number { font-size: 12px; font-weight: 750; }
-    .day.today .day-number { display: inline-grid; place-items: center; width: 23px; height: 23px; margin: -3px 0 0 -3px; color: #fff; border-radius: 50%; background: var(--accent); }
-    .day.holiday { background: #f2f8f3; }
-    .holiday-name { display: block; margin-top: 6px; color: var(--accent-dark); font-size: 9px; line-height: 1.15; }
-    .calendar-footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; color: var(--muted); font-size: 12px; }
-    .feature-band { padding: 65px 0 0; border-top: 1px solid var(--line); }
-    .section-title { max-width: 580px; margin: 0 0 25px; font-size: 34px; line-height: 1.05; letter-spacing: -.035em; }
-    .feature-layout { display: grid; grid-template-columns: 1.04fr .96fr; gap: 48px; align-items: start; }
-    .feature-lead { margin: 0; max-width: 470px; color: var(--muted); font-size: 16px; }
-    .feature-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-    .feature-list li { display: flex; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--line); }
-    .feature-list b { min-width: 25px; color: var(--accent); font-size: 12px; }
-    .feature-list strong { display: block; margin-bottom: 2px; font-size: 14px; }
-    .feature-list span { color: var(--muted); font-size: 13px; }
-    .footer { border-top: 1px solid var(--line); padding: 24px 0 30px; color: var(--muted); font-size: 12px; }
+    .button-secondary { color: var(--ink); border-color: var(--line-strong); background: var(--surface); }
+    .button-secondary:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+    .support-band { display: grid; grid-template-columns: .9fr 1.1fr; gap: 74px; padding: 66px 0 0; border-top: 1px solid var(--line); }
+    .support-band h2 { max-width: 430px; margin: 0 0 16px; font-size: 33px; line-height: 1.06; letter-spacing: -.03em; }
+    .support-band p { max-width: 440px; margin: 0; color: var(--muted); font-size: 15px; }
+    .support-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .support-list li { display: grid; grid-template-columns: 32px 1fr; gap: 15px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .support-list b { color: var(--accent); font-size: 12px; }
+    .support-list strong { display: block; margin-bottom: 2px; font-size: 14px; }
+    .support-list span { color: var(--muted); font-size: 13px; }
+
+    .footer { padding: 24px 0 30px; color: var(--muted); border-top: 1px solid var(--line); font-size: 12px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
     .footer a { text-decoration: none; }
     .footer a:hover { color: var(--ink); }
-    .toast { position: fixed; left: 50%; bottom: 24px; z-index: 20; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 11px 15px; border-radius: 8px; color: #fff; background: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,.18); font-size: 13px; transition: opacity .2s ease, transform .2s ease; }
+    .toast { position: fixed; left: 50%; bottom: 24px; z-index: 20; max-width: calc(100% - 28px); padding: 11px 15px; color: #fff; border-radius: 7px; background: var(--ink); box-shadow: 0 10px 30px rgba(0, 0, 0, .18); font-size: 13px; opacity: 0; pointer-events: none; transform: translate(-50%, 18px); transition: opacity .2s ease, transform .2s ease; }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; gap: 36px; min-height: 0; }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; gap: 37px; padding-top: 8px; }
       .hero-copy h1 { max-width: 650px; }
       .hero-copy p { max-width: 570px; }
-      .builder { max-width: 720px; }
+      .builder { max-width: 760px; }
+      .support-band { gap: 44px; }
     }
-    @media (max-width: 640px) {
-      .header-inner, .main, .footer-inner { width: min(100% - 28px, 1160px); }
+    @media (max-width: 700px) {
+      .header-inner, .main, .footer-inner { width: min(100% - 28px, 1180px); }
       .site-header { height: 62px; }
-      .nav { gap: 12px; font-size: 12px; }
+      .nav { gap: 13px; font-size: 12px; }
       .nav a:not(.nav-action) { display: none; }
-      .main { padding-top: 36px; }
-      .hero { margin-bottom: 49px; }
-      .hero-copy h1 { font-size: 48px; }
+      .main { padding-top: 34px; }
+      .hero { padding-bottom: 49px; }
+      .hero-copy h1 { font-size: 45px; }
       .hero-copy p { font-size: 15px; }
-      .hero-meta { flex-wrap: wrap; gap: 10px 15px; margin-top: 23px; }
-      .builder-controls { grid-template-columns: 1fr 1fr; }
+      .builder-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 16px; }
       .checkline { grid-column: 1 / -1; align-self: auto; }
-      .calendar-wrap { padding: 17px 12px 17px; }
-      .calendar-head h2 { font-size: 24px; }
+      .template-field { padding-top: 14px; }
+      .template-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .calendar-sheet { padding: 19px 12px 17px; }
+      .calendar-head h2 { font-size: 25px; }
       .weekday { padding: 6px 3px; font-size: 8px; text-align: center; }
-      .day { min-height: 52px; padding: 6px 4px; }
+      .day { min-height: 56px; padding: 6px 4px; }
+      body[data-template="notes"] .day { min-height: 70px; }
       .day-number { font-size: 11px; }
-      .holiday-name { font-size: 7px; }
-      .feature-band { padding-top: 46px; }
-      .section-title { font-size: 30px; }
-      .feature-layout { grid-template-columns: 1fr; gap: 26px; }
+      .holiday-name { margin-top: 4px; font-size: 7px; }
+      .calendar-footer { font-size: 12px; }
+      .export-bar { align-items: stretch; flex-direction: column; gap: 12px; padding: 15px 16px; }
+      .export-actions { width: 100%; grid-template-columns: 1fr; }
+      .export-actions .button { flex: 1; }
+      .support-band { grid-template-columns: 1fr; gap: 27px; padding-top: 47px; }
+      .support-band h2 { font-size: 29px; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
     }
+
+    @page { margin: .45in; }
     @media print {
-      .site-header, .hero-copy, .builder-top, .builder-controls, .feature-band, .footer { display: none !important; }
+      html, body { background: #fff; }
+      body { color: #111; }
+      .site-header, .hero-copy, .builder-bar, .builder-controls, .export-bar, .support-band, .footer, .toast { display: none !important; }
       .main { width: 100%; padding: 0; }
-      .hero { display: block; margin: 0; }
-      .builder { border: 0; box-shadow: none; }
-      .calendar-wrap { padding: 0; }
-      .day { min-height: 100px; }
+      .hero { display: block; padding: 0; }
+      .builder { max-width: none; overflow: visible; border: 0; box-shadow: none; }
+      .calendar-sheet { padding: 0; }
+      .calendar-head { margin-bottom: 18px; }
+      .calendar-head h2 { font-size: 31px; }
+      .calendar-head p { color: #555; }
+      .calendar-grid { border-color: #b8c1ba; }
+      .weekday, .day { border-color: #b8c1ba; }
+      .weekday { background: #f4f5f0; }
+      .day { min-height: 1.16in; }
+      .day.empty { background: #fbfcfa; }
+      .day.today .day-number { color: #111; background: none; }
+      .day.holiday { background: #f4f9f4; }
+      .holiday-name { color: #194b35; }
+      .calendar-footer { display: none; }
+      .calendar-notes { display: none !important; }
     }
   </style>
 </head>
 <body>
-  <!-- THESIS: Calendar Forge turns a monthly planning search into a finished, printable artifact; it refuses the generic template directory. OWN-WORLD: botanical green, soft paper, precise rules, and a quiet tool-first layout. STORY: choose a month and region, see the result instantly, then print or download it. FIRST VIEWPORT: left-aligned promise with the live calendar builder on the right. FORM: original task-tool direction inspired by printable-calendar workflows. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="Calendar Forge home"><span class="brand-mark">CF</span><span>Calendar Forge</span></a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="#builder">Make a calendar</a>
+        <a href="#builder">Calendar maker</a>
         <a href="#how-it-works">How it works</a>
-        <a class="nav-action" href="#builder">Start free</a>
+        <a class="nav-action" href="#builder">Create a calendar</a>
       </nav>
     </div>
   </header>
@@ -235,133 +253,238 @@
   <main id="top" class="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <h1 id="hero-title">Make room for <span>what matters.</span></h1>
-        <p>A clean, printable calendar for your month, your region, and the way you actually plan.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#builder">Build your calendar <span aria-hidden="true">→</span></a>
-          <button class="button button-secondary" id="hero-print" type="button">Print preview</button>
-        </div>
-        <div class="hero-meta" aria-label="Product details">
-          <span><i class="dot"></i>Free to use</span>
-          <span><i class="dot"></i>No account needed</span>
-          <span><i class="dot"></i>Made for paper</span>
+        <p class="eyebrow">Free printable calendar maker</p>
+        <h1 id="hero-title">Your month, ready for <span>paper.</span></h1>
+        <p>Choose a month, set your region, and make a clean calendar you can print, save as PDF, or open in Word.</p>
+        <div class="proof-row" aria-label="Product details">
+          <span><i></i>No account needed</span>
+          <span><i></i>Regional holidays</span>
+          <span><i></i>A4 and Letter ready</span>
         </div>
       </div>
 
       <section class="builder" id="builder" aria-labelledby="builder-title">
-        <div class="builder-top">
-          <strong id="builder-title">Your month, your way</strong>
-          <small id="format-label">A4 / Letter ready</small>
+        <div class="builder-bar">
+          <strong id="builder-title">Build your monthly calendar</strong>
+          <small id="format-label">Print-ready preview</small>
         </div>
         <div class="builder-controls">
-          <div class="field">
-            <label for="month">Month</label>
-            <select id="month">
-              <option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8" selected>September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="year">Year</label>
-            <select id="year"><option>2026</option><option>2027</option><option>2028</option></select>
-          </div>
-          <div class="field">
-            <label for="region">Region</label>
-            <select id="region"><option value="us">United States</option><option value="uk">United Kingdom</option><option value="au">Australia</option><option value="sg">Singapore</option></select>
-          </div>
+          <div class="field"><label for="month">Month</label><select id="month"></select></div>
+          <div class="field"><label for="year">Year</label><select id="year"></select></div>
+          <div class="field"><label for="region">Region</label><select id="region"><option value="us">United States</option><option value="uk">United Kingdom</option><option value="au">Australia</option><option value="sg">Singapore</option></select></div>
+          <div class="field"><label for="week-start">Week starts</label><select id="week-start"><option value="0">Sunday</option><option value="1">Monday</option></select></div>
           <label class="checkline"><input id="holidays" type="checkbox" checked> Show public holidays</label>
+          <fieldset class="template-field">
+            <legend>Calendar style</legend>
+            <p class="template-help">Choose a look for your preview and downloads.</p>
+            <div class="template-options" role="group" aria-label="Calendar style">
+              <button class="template-option" type="button" data-template="classic" aria-pressed="true"><span class="template-swatch"></span><span><strong>Classic</strong><small>Clean and quiet</small></span></button>
+              <button class="template-option" type="button" data-template="editorial" aria-pressed="false"><span class="template-swatch editorial"></span><span><strong>Editorial</strong><small>Warm and refined</small></span></button>
+              <button class="template-option" type="button" data-template="color-pop" aria-pressed="false"><span class="template-swatch color-pop"></span><span><strong>Color Pop</strong><small>Bright and friendly</small></span></button>
+              <button class="template-option" type="button" data-template="notes" aria-pressed="false"><span class="template-swatch notes"></span><span><strong>Notes</strong><small>More room to write</small></span></button>
+            </div>
+          </fieldset>
         </div>
-        <div class="calendar-wrap">
-          <div class="calendar-head">
-            <div><h2 id="calendar-title">September 2026</h2><p id="calendar-subtitle">United States · Sunday start</p></div>
-            <button class="button button-secondary" id="download" type="button" aria-label="Download calendar as text file">Download</button>
-          </div>
-          <div class="calendar-grid" id="calendar-grid" aria-label="Calendar preview"></div>
-          <div class="calendar-footer"><span id="holiday-summary">Labor Day · Sep 7</span><span>Built with Calendar Forge</span></div>
+        <div class="calendar-sheet" id="calendar-sheet">
+          <div class="calendar-head"><div><h2 id="calendar-title">September 2026</h2><p id="calendar-subtitle">United States · Sunday start</p></div></div>
+          <div class="calendar-grid" id="calendar-grid" aria-label="Calendar preview" role="grid"></div>
+          <div class="calendar-notes" aria-label="Notes area"><strong>Notes</strong><span></span><span></span></div>
+          <div class="calendar-footer"><span id="holiday-summary">Labor Day · Sep 7</span><span>Public holidays are highlighted</span></div>
+        </div>
+        <div class="export-bar">
+          <span class="export-note">Choose your format</span>
+          <div class="export-actions"><button class="button button-primary" id="print-calendar" type="button">Print calendar</button><button class="button button-secondary" id="download-pdf" type="button">Download PDF</button><button class="button button-secondary" id="download-word" type="button">Download Word</button></div>
         </div>
       </section>
     </section>
 
-    <section class="feature-band" id="how-it-works" aria-labelledby="feature-title">
-      <h2 class="section-title" id="feature-title">A small tool for a clearer month.</h2>
-      <div class="feature-layout">
-        <p class="feature-lead">Designed for the moment when a blank page is exactly what you need: set the dates, mark the important bits, and take it with you.</p>
-        <ol class="feature-list">
-          <li><b>01</b><div><strong>Pick your frame</strong><span>Choose a month, year, and local holiday set.</span></div></li>
-          <li><b>02</b><div><strong>Make it yours</strong><span>Use the clean preview as your planning canvas.</span></div></li>
-          <li><b>03</b><div><strong>Take it offline</strong><span>Print it at home or download a paper-ready file.</span></div></li>
-        </ol>
-      </div>
+    <section class="support-band" id="how-it-works" aria-labelledby="feature-title">
+      <div><h2 id="feature-title">A simple calendar for real-world planning.</h2><p>Made for the fridge, the desk, the classroom, and anywhere a blank month is more useful on paper.</p></div>
+      <ol class="support-list">
+        <li><b>01</b><div><strong>Choose your month</strong><span>Set the month, year, region, and first day of the week.</span></div></li>
+        <li><b>02</b><div><strong>Check the finished page</strong><span>Public holidays appear directly on the dates they belong to.</span></div></li>
+        <li><b>03</b><div><strong>Print or open in Word</strong><span>Print to paper or save a Word document you can edit later.</span></div></li>
+      </ol>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner"><span>© 2026 Calendar Forge</span><span><a href="#builder">Make a calendar</a> · <a href="mailto:hello@calendarforge.stream">Contact</a></span></div>
-  </footer>
+  <footer class="footer"><div class="footer-inner"><span>© 2026 Calendar Forge</span><span><a href="#builder">Create a calendar</a> · <a href="mailto:hello@calendarforge.stream">Contact</a></span></div></footer>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const holidays = {
-      us: {"2026-8-7":"Labor Day", "2026-9-12":"Columbus Day", "2026-10-11":"Veterans Day", "2026-10-26":"Thanksgiving"},
-      uk: {"2026-7-31":"Summer bank holiday", "2026-11-25":"Christmas Day", "2026-11-26":"Boxing Day"},
-      au: {"2026-10-5":"Labour Day", "2026-11-3":"Melbourne Cup", "2026-12-25":"Christmas Day"},
-      sg: {"2026-11-25":"Christmas Day"}
+      us: {"2026-8-7": "Labor Day", "2026-9-12": "Columbus Day", "2026-10-11": "Veterans Day", "2026-10-26": "Thanksgiving"},
+      uk: {"2026-7-31": "Summer bank holiday", "2026-11-25": "Christmas Day", "2026-11-26": "Boxing Day"},
+      au: {"2026-10-5": "Labour Day", "2026-11-3": "Melbourne Cup", "2026-11-25": "Christmas Day"},
+      sg: {"2026-11-25": "Christmas Day"}
     };
     const regionNames = { us: "United States", uk: "United Kingdom", au: "Australia", sg: "Singapore" };
     const monthEl = document.querySelector("#month");
     const yearEl = document.querySelector("#year");
     const regionEl = document.querySelector("#region");
+    const weekStartEl = document.querySelector("#week-start");
     const holidaysEl = document.querySelector("#holidays");
     const gridEl = document.querySelector("#calendar-grid");
     const titleEl = document.querySelector("#calendar-title");
     const subtitleEl = document.querySelector("#calendar-subtitle");
     const summaryEl = document.querySelector("#holiday-summary");
+    const formatLabelEl = document.querySelector("#format-label");
     const toastEl = document.querySelector("#toast");
+    const templateButtons = Array.from(document.querySelectorAll("[data-template]"));
+    const templateStyles = {
+      classic: { accent: "#176746", accentDark: "#0d4e35", ink: "#15231e", muted: "#617069", header: "#f4f5f0", holiday: "#f4f9f4" },
+      editorial: { accent: "#a34d37", accentDark: "#713426", ink: "#2c201b", muted: "#766a63", header: "#f3e5de", holiday: "#f8e8e1" },
+      "color-pop": { accent: "#ce4b36", accentDark: "#963326", ink: "#15262d", muted: "#64727a", header: "#fbe8dc", holiday: "#fff0d8" },
+      notes: { accent: "#315d94", accentDark: "#234875", ink: "#18283a", muted: "#607082", header: "#eaf1f8", holiday: "#e6eff9" }
+    };
+    let currentTemplate = "classic";
+    const now = new Date();
 
-    function key(year, month, day) { return `${year}-${month}-${day}`; }
+    function populateInputs() {
+      monthEl.innerHTML = monthNames.map((name, index) => `<option value="${index}" ${index === now.getMonth() ? "selected" : ""}>${name}</option>`).join("");
+      const startYear = now.getFullYear() - 1;
+      yearEl.innerHTML = Array.from({length: 8}, (_, index) => startYear + index).map(year => `<option ${year === now.getFullYear() ? "selected" : ""}>${year}</option>`).join("");
+    }
+    function dateKey(year, month, day) { return `${year}-${month}-${day}`; }
+    function orderedWeekdays(start) { return weekdays.slice(start).concat(weekdays.slice(0, start)); }
     function renderCalendar() {
-      const month = Number(monthEl.value);
-      const year = Number(yearEl.value);
-      const region = regionEl.value;
-      const first = new Date(year, month, 1).getDay();
-      const days = new Date(year, month + 1, 0).getDate();
-      const set = holidays[region] || {};
-      gridEl.innerHTML = weekdays.map(day => `<div class="weekday">${day}</div>`).join("");
-      for (let i = 0; i < first; i++) gridEl.insertAdjacentHTML("beforeend", `<div class="day empty" aria-hidden="true"></div>`);
-      const holidayLabels = [];
+      const month = Number(monthEl.value), year = Number(yearEl.value), region = regionEl.value, weekStart = Number(weekStartEl.value);
+      const firstDay = new Date(year, month, 1).getDay(), offset = (firstDay - weekStart + 7) % 7, days = new Date(year, month + 1, 0).getDate();
+      const set = holidays[region] || {}, labels = orderedWeekdays(weekStart), holidayLabels = [];
+      let markup = labels.map(day => `<div class="weekday" role="columnheader">${day}</div>`).join("");
+      for (let index = 0; index < offset; index++) markup += `<div class="day empty" aria-hidden="true"></div>`;
       for (let day = 1; day <= days; day++) {
-        const holiday = holidaysEl.checked ? set[key(year, month, day)] : "";
-        if (holiday) holidayLabels.push(`${holiday} · ${monthNames[month].slice(0, 3)} ${day}`);
-        const now = new Date();
+        const holiday = holidaysEl.checked ? set[dateKey(year, month, day)] : "";
         const isToday = year === now.getFullYear() && month === now.getMonth() && day === now.getDate();
-        gridEl.insertAdjacentHTML("beforeend", `<div class="day ${holiday ? "holiday" : ""} ${isToday ? "today" : ""}"><span class="day-number">${day}</span>${holiday ? `<span class="holiday-name">${holiday}</span>` : ""}</div>`);
+        if (holiday) holidayLabels.push(`${holiday} · ${monthNames[month].slice(0, 3)} ${day}`);
+        const actualWeekday = (weekStart + offset + day - 1) % 7;
+        markup += `<div class="day ${holiday ? "holiday" : ""} ${actualWeekday === 0 || actualWeekday === 6 ? "weekend" : ""} ${isToday ? "today" : ""}" role="gridcell" aria-label="${monthNames[month]} ${day}, ${year}"><span class="day-number">${day}</span>${holiday ? `<span class="holiday-name">${holiday}</span>` : ""}</div>`;
       }
-      const total = Math.ceil((first + days) / 7) * 7;
-      for (let i = first + days; i < total; i++) gridEl.insertAdjacentHTML("beforeend", `<div class="day empty" aria-hidden="true"></div>`);
+      const total = Math.ceil((offset + days) / 7) * 7;
+      for (let index = offset + days; index < total; index++) markup += `<div class="day empty" aria-hidden="true"></div>`;
+      gridEl.innerHTML = markup;
       titleEl.textContent = `${monthNames[month]} ${year}`;
-      subtitleEl.textContent = `${regionNames[region]} · Sunday start`;
+      subtitleEl.textContent = `${regionNames[region]} · ${weekStart === 0 ? "Sunday" : "Monday"} start`;
       summaryEl.textContent = holidayLabels.length ? holidayLabels.join(" · ") : "No public holidays shown";
+      formatLabelEl.textContent = `${gridEl.querySelectorAll(".day:not(.empty)").length} days · print-ready preview`;
     }
     function showToast(message) {
       toastEl.textContent = message;
       toastEl.classList.add("show");
       clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
+      window.toastTimer = setTimeout(() => toastEl.classList.remove("show"), 3000);
     }
-    function downloadCalendar() {
-      const text = `${titleEl.textContent}\n${subtitleEl.textContent}\n\n${Array.from(gridEl.querySelectorAll(".day")).map(cell => cell.textContent || " ").join(" | ")}\n\nGenerated by Calendar Forge`;
-      const blob = new Blob([text], {type: "text/plain"});
+    function selectTemplate(template) {
+      if (!templateStyles[template]) return;
+      currentTemplate = template;
+      document.body.dataset.template = template;
+      templateButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.template === template)));
+      const names = { classic: "Classic", editorial: "Editorial", "color-pop": "Color Pop", notes: "Notes" };
+      showToast(`${names[template]} style selected.`);
+    }
+    function escapeHtml(value) { return String(value).replace(/[&<>"']/g, character => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"}[character])); }
+    function buildWordDocument() {
+      const month = Number(monthEl.value), year = Number(yearEl.value), region = regionEl.value, weekStart = Number(weekStartEl.value), labels = orderedWeekdays(weekStart);
+      const firstDay = new Date(year, month, 1).getDay(), offset = (firstDay - weekStart + 7) % 7, days = new Date(year, month + 1, 0).getDate(), set = holidays[region] || {};
+      const style = templateStyles[currentTemplate];
+      let rows = "<tr>" + labels.map(day => `<th>${day}</th>`).join("") + "</tr><tr>";
+      for (let index = 0; index < offset; index++) rows += "<td></td>";
+      for (let day = 1; day <= days; day++) {
+        const holiday = holidaysEl.checked ? set[dateKey(year, month, day)] : "";
+        rows += `<td class="${holiday ? "holiday" : ""}"><strong>${day}</strong>${holiday ? `<em>${escapeHtml(holiday)}</em>` : ""}</td>`;
+        if ((offset + day) % 7 === 0 && day !== days) rows += "</tr><tr>";
+      }
+      const remainder = (offset + days) % 7;
+      if (remainder) for (let index = remainder; index < 7; index++) rows += "<td></td>";
+      rows += "</tr>";
+      const notes = currentTemplate === "notes" ? `<section class="notes"><strong>Notes</strong><span></span><span></span></section>` : "";
+      const titleFont = currentTemplate === "editorial" ? "Georgia,serif" : "Arial,sans-serif";
+      return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(titleEl.textContent)} Calendar</title><style>body{font-family:Arial,sans-serif;color:${style.ink};margin:36px}h1{font-family:${titleFont};font-size:28px;margin:0 0 4px;color:${style.accentDark}}p{color:${style.muted};margin:0 0 22px}table{width:100%;border-collapse:collapse;table-layout:fixed}th,td{border:1px solid #b8c1ba;text-align:left;vertical-align:top}th{height:30px;padding:7px;color:${style.accentDark};background:${style.header};font-size:11px}td{height:${currentTemplate === "notes" ? "88px" : "105px"};padding:8px;font-size:12px}td.holiday{background:${style.holiday}}td strong{display:block;font-size:14px}td em{display:block;margin-top:8px;color:${style.accentDark};font-size:10px;font-style:normal}.notes{margin-top:22px}.notes strong{display:block;color:${style.accentDark};font-size:12px;margin-bottom:8px}.notes span{display:block;height:22px;border-bottom:1px solid #b8c1ba}</style></head><body><h1>${escapeHtml(titleEl.textContent)}</h1><p>${escapeHtml(subtitleEl.textContent)}</p><table>${rows}</table>${notes}</body></html>`;
+    }
+    function pdfText(value) { return String(value).replace(/[^\x20-\x7E]/g, "").replace(/[()\\]/g, character => `\\${character}`); }
+    function pdfNumber(value) { return Number(value.toFixed(2)); }
+    function hexToPdf(hex) { const value = hex.replace("#", ""); return [0, 2, 4].map(index => (parseInt(value.slice(index, index + 2), 16) / 255).toFixed(3)).join(" "); }
+    function buildPdfDocument() {
+      const month = Number(monthEl.value), year = Number(yearEl.value), region = regionEl.value, weekStart = Number(weekStartEl.value);
+      const firstDay = new Date(year, month, 1).getDay(), offset = (firstDay - weekStart + 7) % 7, days = new Date(year, month + 1, 0).getDate();
+      const set = holidays[region] || {}, labels = orderedWeekdays(weekStart), weekRows = Math.ceil((offset + days) / 7), style = templateStyles[currentTemplate];
+      const pageWidth = 841.89, pageHeight = 595.28, margin = 36, gridLeft = margin, gridRight = pageWidth - margin;
+      const gridTop = 512, headerHeight = 28, gridBottom = currentTemplate === "notes" ? 120 : 70, columnWidth = (gridRight - gridLeft) / 7, rowHeight = (gridTop - headerHeight - gridBottom) / weekRows;
+      const commands = [];
+      const fillRect = (x, y, width, height, color) => commands.push(`${color} rg ${pdfNumber(x)} ${pdfNumber(y)} ${pdfNumber(width)} ${pdfNumber(height)} re f`);
+      const strokeLine = (x1, y1, x2, y2) => commands.push(`${pdfNumber(x1)} ${pdfNumber(y1)} m ${pdfNumber(x2)} ${pdfNumber(y2)} l S`);
+      const text = (font, size, x, y, value, color = "0.08 0.14 0.11") => commands.push(`${color} rg BT /${font} ${size} Tf ${pdfNumber(x)} ${pdfNumber(y)} Td (${pdfText(value)}) Tj ET`);
+      const cellY = row => gridTop - headerHeight - ((row + 1) * rowHeight);
+
+      commands.push("0.78 0.82 0.79 RG 0.7 w");
+      fillRect(gridLeft, gridTop - headerHeight, gridRight - gridLeft, headerHeight, hexToPdf(style.header));
+      for (let cell = 0; cell < offset + days; cell++) {
+        const day = cell - offset + 1;
+        if (day < 1 || day > days) continue;
+        const row = Math.floor(cell / 7), column = cell % 7, holiday = holidaysEl.checked ? set[dateKey(year, month, day)] : "";
+        if (holiday) fillRect(gridLeft + column * columnWidth + .5, cellY(row) + .5, columnWidth - 1, rowHeight - 1, hexToPdf(style.holiday));
+      }
+      for (let column = 0; column <= 7; column++) strokeLine(gridLeft + column * columnWidth, gridTop, gridLeft + column * columnWidth, gridBottom);
+      strokeLine(gridLeft, gridTop, gridRight, gridTop);
+      strokeLine(gridLeft, gridTop - headerHeight, gridRight, gridTop - headerHeight);
+      for (let row = 0; row <= weekRows; row++) strokeLine(gridLeft, gridTop - headerHeight - row * rowHeight, gridRight, gridTop - headerHeight - row * rowHeight);
+      text("F1", 28, margin, 548, `${monthNames[month]} ${year}`, hexToPdf(style.accentDark));
+      text("F2", 10, margin, 530, `${regionNames[region]} - ${weekStart === 0 ? "Sunday" : "Monday"} start`, hexToPdf(style.muted));
+      labels.forEach((label, column) => text("F1", 8, gridLeft + column * columnWidth + 9, gridTop - 18, label.toUpperCase(), hexToPdf(style.accentDark)));
+      for (let day = 1; day <= days; day++) {
+        const cell = offset + day - 1, row = Math.floor(cell / 7), column = cell % 7, holiday = holidaysEl.checked ? set[dateKey(year, month, day)] : "";
+        const x = gridLeft + column * columnWidth + 9, y = cellY(row) + rowHeight - 17;
+        text("F1", 10, x, y, day, hexToPdf(style.ink));
+        if (holiday) text("F2", 7, x, y - 14, holiday.slice(0, 23), hexToPdf(style.accentDark));
+      }
+      if (currentTemplate === "notes") {
+        text("F2", 9, margin, 97, "Notes", hexToPdf(style.accentDark));
+        strokeLine(margin, 82, gridRight, 82);
+        strokeLine(margin, 65, gridRight, 65);
+      } else {
+        const footer = `Generated with Calendar Forge - ${monthNames[month]} ${year}`;
+        text("F2", 8, margin, 47, footer, hexToPdf(style.muted));
+      }
+      const stream = commands.join("\n");
+      const objects = [
+        "<< /Type /Catalog /Pages 2 0 R >>",
+        "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>`,
+        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>",
+        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+        `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`
+      ];
+      let pdf = "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n", offsets = [0];
+      objects.forEach((object, index) => { offsets[index + 1] = pdf.length; pdf += `${index + 1} 0 obj\n${object}\nendobj\n`; });
+      const xref = pdf.length;
+      pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+      offsets.slice(1).forEach(offsetValue => { pdf += `${String(offsetValue).padStart(10, "0")} 00000 n \n`; });
+      pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+      return new Blob([pdf], {type: "application/pdf"});
+    }
+    function downloadPdf() {
       const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = `${monthNames[Number(monthEl.value)].toLowerCase()}-${yearEl.value}-calendar.txt`;
+      link.href = URL.createObjectURL(buildPdfDocument());
+      link.download = `${monthNames[Number(monthEl.value)].toLowerCase()}-${yearEl.value}-calendar.pdf`;
       link.click();
       URL.revokeObjectURL(link.href);
-      showToast("Your calendar is ready to download.");
+      showToast("PDF downloaded.");
     }
-    [monthEl, yearEl, regionEl, holidaysEl].forEach(input => input.addEventListener("change", renderCalendar));
-    document.querySelector("#download").addEventListener("click", downloadCalendar);
-    document.querySelector("#hero-print").addEventListener("click", () => { showToast("Opening print preview…"); setTimeout(() => window.print(), 300); });
+    function downloadWord() {
+      const blob = new Blob([buildWordDocument()], {type: "application/msword"}), link = document.createElement("a");
+      link.href = URL.createObjectURL(blob); link.download = `${monthNames[Number(monthEl.value)].toLowerCase()}-${yearEl.value}-calendar.doc`; link.click(); URL.revokeObjectURL(link.href);
+      showToast("Word document downloaded. Open it in Microsoft Word or Pages.");
+    }
+    function printCalendar() { showToast("Print dialog opened."); setTimeout(() => window.print(), 220); }
+
+    populateInputs();
+    [monthEl, yearEl, regionEl, weekStartEl, holidaysEl].forEach(input => input.addEventListener("change", renderCalendar));
+    templateButtons.forEach(button => button.addEventListener("click", () => selectTemplate(button.dataset.template)));
+    document.querySelector("#print-calendar").addEventListener("click", printCalendar);
+    document.querySelector("#download-pdf").addEventListener("click", downloadPdf);
+    document.querySelector("#download-word").addEventListener("click", downloadWord);
     renderCalendar();
   </script>
 </body>

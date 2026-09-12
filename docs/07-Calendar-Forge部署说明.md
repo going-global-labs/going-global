@@ -32,7 +32,8 @@ Google 不提供普通网站的免费托管入口，因此“发布到 Google �
 
 - 将页面中的联系邮箱替换为真实运营邮箱；
 - 复核各地区节假日数据并标注来源；
-- 将当前文本下载升级为真实 PDF/ICS 导出；
+- 当前页面已经支持打印、直接下载 `.pdf` 文件，以及下载可用 Microsoft Word / Pages 打开的 `.doc` 月历文件；后续再评估真正的 `.docx` 与 ICS 导出；
+- 页面还提供 Classic、Editorial、Color Pop 和 Notes 四种场景化模板。模板会同步影响网页预览、PDF 和 Word 文件，其中 Notes 模板会增加可书写的记事区；
 - 接入隐私政策、Cookie 说明和分析工具时确认当地要求；
 - 不使用竞品 Logo、截图、受版权保护模板或“官方”措辞；
 - 用 Google Search Console 检查移动端、结构化数据和抓取状态。
