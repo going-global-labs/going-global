@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-- 状态：`staging`
+- 状态：`live`
 - 生产域名：`https://calendarforge.stream`
 - 部署平台：GitHub Pages
 - 发布目录：本目录 `apps/calendar-forge/`
@@ -38,5 +38,5 @@ python3 -m http.server 4173 --directory apps/calendar-forge
 - [ ] 核验所有地区节假日数据并记录来源；
 - [ ] 把当前文本下载升级为 PDF/ICS 导出；
 - [ ] 添加真实隐私政策、使用条款和运营邮箱；
-- [ ] 在 GitHub Pages 中绑定并验证 `calendarforge.stream`；
+- [x] 在 GitHub Pages 中绑定并验证 `calendarforge.stream`；
 - [ ] 在 Google Search Console 验证域名并提交 `https://calendarforge.stream/sitemap.xml`。

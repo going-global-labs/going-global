@@ -6,7 +6,7 @@
       "id": "calendar-forge",
       "name": "Calendar Forge",
       "path": "apps/calendar-forge",
-      "status": "staging",
+      "status": "live",
       "market": "global",
       "productionDomain": "calendarforge.stream",
       "deployment": "github-pages",
