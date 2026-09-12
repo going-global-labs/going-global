@@ -15,6 +15,8 @@
 7. [Calendar Forge 部署说明](docs/07-Calendar-Forge部署说明.md)
 8. [海外发布与 Google 收录操作指引](docs/08-海外发布与Google收录操作指引.md)
 9. [四个实验站点选题分析](docs/09-四个实验站点选题分析.md)
+10. [生产架构与站点生命周期](docs/10-生产架构与站点生命周期.md)
+11. [GitHub Pages 与 Cloudflare 配置记录](docs/11-GitHub-Pages与Cloudflare配置记录.md)
 
 ## 实验站点
 
