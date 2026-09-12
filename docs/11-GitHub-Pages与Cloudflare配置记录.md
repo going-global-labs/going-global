@@ -102,10 +102,11 @@ Pages：已启用
 自定义域名：已配置
 部署工作流：成功
 DNS：已解析到 Cloudflare
-GitHub HTTPS 证书：等待签发
+GitHub HTTPS 证书：已签发并批准
+Enforce HTTPS：已开启
 ```
 
-GitHub API 当前返回 `https_enforced: false`，这是因为证书还不存在。不要强行重复开启 HTTPS；GitHub 返回 `The certificate does not exist yet` 时，先处理 DNS 代理状态并等待证书生成。
+GitHub API 当前已返回 `https_enforced: true`。证书由 Let's Encrypt 签发，覆盖 `calendarforge.stream` 和 `www.calendarforge.stream`。
 
 验证命令：
 
@@ -117,7 +118,7 @@ console.log("AAAA:", await dns.resolve6("calendarforge.stream").catch(() => []))
 NODE
 ```
 
-证书生成后，在 GitHub Pages 设置中开启：
+证书已经生成，在 GitHub Pages 设置中已开启：
 
 ```text
 Enforce HTTPS
@@ -156,4 +157,4 @@ calendarforge.stream   A       185.199.111.153   DNS only
 www                    CNAME   going-global-labs.github.io   DNS only
 ```
 
-完成后等待 GitHub 证书状态变为可用，再开启 `Enforce HTTPS`。这一步不需要修改代码，也不需要重新创建仓库或 Pages 项目。
+已确认 GitHub 证书状态可用并开启 `Enforce HTTPS`。后续不需要修改代码，也不需要重新创建仓库或 Pages 项目。
