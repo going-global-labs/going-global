@@ -192,14 +192,14 @@ git remote add origin https://github.com/going-global-labs/going-global.git
 git push -u origin main
 ```
 
-将 `YOUR_USERNAME` 和仓库名替换成真实值。第一次 `git push` 可能会要求浏览器登录或 Personal Access Token，不能把密码写入命令。
+第一次 `git push` 可能会要求浏览器登录或 Personal Access Token，不能把密码写入命令。
 
 ### 8.2 开启 GitHub Pages
 
 1. 打开 GitHub 仓库的 **Settings**。
 2. 打开左侧 **Pages**。
 3. 在 **Build and deployment** 的 **Source** 中选择 **GitHub Actions**。
-4. 打开 **Actions** 页面，等待 `Deploy static sites to GitHub Pages` 执行成功。
+4. 打开 **Actions** 页面，等待 `Deploy Calendar Forge` 执行成功。
 5. 在 **Settings > Pages** 里确认 GitHub Pages 已启用，并打开 GitHub 显示的诊断地址。正式访问地址是 `https://calendarforge.stream/`。
 
 ### 8.3 Calendar Forge 的访问地址
