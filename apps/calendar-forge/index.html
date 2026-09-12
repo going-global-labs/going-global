@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendar Forge | Print a better month</title>
+  <meta name="description" content="Build a clean printable calendar for any month, with regional holidays, notes and instant PDF-ready layouts.">
+  <link rel="canonical" href="https://calendarforge.stream/">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta property="og:title" content="Calendar Forge | Print a better month">
+  <meta property="og:description" content="A focused calendar maker for work, home and planning ahead.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calendarforge.stream/">
+  <style>
+    :root {
+      --paper: #f6f7f2;
+      --paper-2: #eef1e9;
+      --ink: #1f2a26;
+      --muted: #65716a;
+      --line: #d8dfd6;
+      --accent: #1f6f52;
+      --accent-dark: #174b39;
+      --accent-soft: #dcebe2;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(30, 56, 43, .10);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    body::selection { background: var(--accent); color: #fff; }
+    a { color: inherit; }
+    button, select, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible {
+      outline: 3px solid #b2d1bf;
+      outline-offset: 3px;
+    }
+    .site-header {
+      height: 72px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(246, 247, 242, .92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner, .main, .footer-inner {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 18px;
+    }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: #fff;
+      background: var(--accent);
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .nav { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: 14px; }
+    .nav a { text-decoration: none; }
+    .nav a:hover { color: var(--ink); }
+    .nav .nav-action { color: var(--accent-dark); font-weight: 700; }
+    .main { padding: 58px 0 76px; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, .84fr) minmax(460px, 1.16fr);
+      gap: 68px;
+      align-items: center;
+      min-height: 405px;
+      margin-bottom: 66px;
+    }
+    .hero-copy h1 {
+      max-width: 520px;
+      margin: 0 0 19px;
+      font-size: clamp(42px, 5.4vw, 72px);
+      line-height: .98;
+      letter-spacing: -.035em;
+      font-weight: 800;
+    }
+    .hero-copy h1 span { color: var(--accent); }
+    .hero-copy p { max-width: 425px; margin: 0 0 28px; color: var(--muted); font-size: 17px; line-height: 1.55; }
+    .hero-actions { display: flex; align-items: center; gap: 14px; }
+    .button {
+      min-height: 44px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      padding: 0 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .button:active { transform: translateY(1px); }
+    .button-primary { color: #fff; background: var(--accent); }
+    .button-primary:hover { background: var(--accent-dark); }
+    .button-secondary { color: var(--ink); border-color: var(--line); background: transparent; }
+    .button-secondary:hover { background: var(--white); border-color: #b7c5b9; }
+    .hero-meta { display: flex; gap: 18px; margin-top: 31px; color: var(--muted); font-size: 12px; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .builder {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .builder-top {
+      padding: 18px 21px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcf9;
+    }
+    .builder-top strong { font-size: 14px; }
+    .builder-top small { color: var(--muted); font-size: 12px; }
+    .builder-controls { padding: 19px 21px 21px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-bottom: 1px solid var(--line); }
+    .field { display: grid; gap: 6px; }
+    .field label { font-size: 11px; color: var(--muted); font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+    .field select, .field input { width: 100%; height: 39px; border: 1px solid var(--line); border-radius: 7px; padding: 0 10px; color: var(--ink); background: var(--paper); }
+    .checkline { display: flex; align-items: center; gap: 8px; align-self: end; height: 39px; color: var(--muted); font-size: 13px; }
+    .checkline input { accent-color: var(--accent); }
+    .calendar-wrap { padding: 22px 23px 24px; }
+    .calendar-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .calendar-head h2 { margin: 0; font-size: 28px; letter-spacing: -.045em; line-height: 1; }
+    .calendar-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .weekday, .day { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .weekday { min-height: 29px; padding: 7px 8px; color: var(--muted); background: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .day { min-height: 58px; padding: 7px 8px; position: relative; background: #fff; }
+    .day.empty { background: #fbfcfa; }
+    .day-number { font-size: 12px; font-weight: 750; }
+    .day.today .day-number { display: inline-grid; place-items: center; width: 23px; height: 23px; margin: -3px 0 0 -3px; color: #fff; border-radius: 50%; background: var(--accent); }
+    .day.holiday { background: #f2f8f3; }
+    .holiday-name { display: block; margin-top: 6px; color: var(--accent-dark); font-size: 9px; line-height: 1.15; }
+    .calendar-footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; color: var(--muted); font-size: 12px; }
+    .feature-band { padding: 65px 0 0; border-top: 1px solid var(--line); }
+    .section-title { max-width: 580px; margin: 0 0 25px; font-size: 34px; line-height: 1.05; letter-spacing: -.035em; }
+    .feature-layout { display: grid; grid-template-columns: 1.04fr .96fr; gap: 48px; align-items: start; }
+    .feature-lead { margin: 0; max-width: 470px; color: var(--muted); font-size: 16px; }
+    .feature-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .feature-list li { display: flex; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+    .feature-list b { min-width: 25px; color: var(--accent); font-size: 12px; }
+    .feature-list strong { display: block; margin-bottom: 2px; font-size: 14px; }
+    .feature-list span { color: var(--muted); font-size: 13px; }
+    .footer { border-top: 1px solid var(--line); padding: 24px 0 30px; color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    .footer a { text-decoration: none; }
+    .footer a:hover { color: var(--ink); }
+    .toast { position: fixed; left: 50%; bottom: 24px; z-index: 20; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 11px 15px; border-radius: 8px; color: #fff; background: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,.18); font-size: 13px; transition: opacity .2s ease, transform .2s ease; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 36px; min-height: 0; }
+      .hero-copy h1 { max-width: 650px; }
+      .hero-copy p { max-width: 570px; }
+      .builder { max-width: 720px; }
+    }
+    @media (max-width: 640px) {
+      .header-inner, .main, .footer-inner { width: min(100% - 28px, 1160px); }
+      .site-header { height: 62px; }
+      .nav { gap: 12px; font-size: 12px; }
+      .nav a:not(.nav-action) { display: none; }
+      .main { padding-top: 36px; }
+      .hero { margin-bottom: 49px; }
+      .hero-copy h1 { font-size: 48px; }
+      .hero-copy p { font-size: 15px; }
+      .hero-meta { flex-wrap: wrap; gap: 10px 15px; margin-top: 23px; }
+      .builder-controls { grid-template-columns: 1fr 1fr; }
+      .checkline { grid-column: 1 / -1; align-self: auto; }
+      .calendar-wrap { padding: 17px 12px 17px; }
+      .calendar-head h2 { font-size: 24px; }
+      .weekday { padding: 6px 3px; font-size: 8px; text-align: center; }
+      .day { min-height: 52px; padding: 6px 4px; }
+      .day-number { font-size: 11px; }
+      .holiday-name { font-size: 7px; }
+      .feature-band { padding-top: 46px; }
+      .section-title { font-size: 30px; }
+      .feature-layout { grid-template-columns: 1fr; gap: 26px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media print {
+      .site-header, .hero-copy, .builder-top, .builder-controls, .feature-band, .footer { display: none !important; }
+      .main { width: 100%; padding: 0; }
+      .hero { display: block; margin: 0; }
+      .builder { border: 0; box-shadow: none; }
+      .calendar-wrap { padding: 0; }
+      .day { min-height: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- THESIS: Calendar Forge turns a monthly planning search into a finished, printable artifact; it refuses the generic template directory. OWN-WORLD: botanical green, soft paper, precise rules, and a quiet tool-first layout. STORY: choose a month and region, see the result instantly, then print or download it. FIRST VIEWPORT: left-aligned promise with the live calendar builder on the right. FORM: original task-tool direction inspired by printable-calendar workflows. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Calendar Forge home"><span class="brand-mark">CF</span><span>Calendar Forge</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#builder">Make a calendar</a>
+        <a href="#how-it-works">How it works</a>
+        <a class="nav-action" href="#builder">Start free</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">Make room for <span>what matters.</span></h1>
+        <p>A clean, printable calendar for your month, your region, and the way you actually plan.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#builder">Build your calendar <span aria-hidden="true">→</span></a>
+          <button class="button button-secondary" id="hero-print" type="button">Print preview</button>
+        </div>
+        <div class="hero-meta" aria-label="Product details">
+          <span><i class="dot"></i>Free to use</span>
+          <span><i class="dot"></i>No account needed</span>
+          <span><i class="dot"></i>Made for paper</span>
+        </div>
+      </div>
+
+      <section class="builder" id="builder" aria-labelledby="builder-title">
+        <div class="builder-top">
+          <strong id="builder-title">Your month, your way</strong>
+          <small id="format-label">A4 / Letter ready</small>
+        </div>
+        <div class="builder-controls">
+          <div class="field">
+            <label for="month">Month</label>
+            <select id="month">
+              <option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8" selected>September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="year">Year</label>
+            <select id="year"><option>2026</option><option>2027</option><option>2028</option></select>
+          </div>
+          <div class="field">
+            <label for="region">Region</label>
+            <select id="region"><option value="us">United States</option><option value="uk">United Kingdom</option><option value="au">Australia</option><option value="sg">Singapore</option></select>
+          </div>
+          <label class="checkline"><input id="holidays" type="checkbox" checked> Show public holidays</label>
+        </div>
+        <div class="calendar-wrap">
+          <div class="calendar-head">
+            <div><h2 id="calendar-title">September 2026</h2><p id="calendar-subtitle">United States · Sunday start</p></div>
+            <button class="button button-secondary" id="download" type="button" aria-label="Download calendar as text file">Download</button>
+          </div>
+          <div class="calendar-grid" id="calendar-grid" aria-label="Calendar preview"></div>
+          <div class="calendar-footer"><span id="holiday-summary">Labor Day · Sep 7</span><span>Built with Calendar Forge</span></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="feature-band" id="how-it-works" aria-labelledby="feature-title">
+      <h2 class="section-title" id="feature-title">A small tool for a clearer month.</h2>
+      <div class="feature-layout">
+        <p class="feature-lead">Designed for the moment when a blank page is exactly what you need: set the dates, mark the important bits, and take it with you.</p>
+        <ol class="feature-list">
+          <li><b>01</b><div><strong>Pick your frame</strong><span>Choose a month, year, and local holiday set.</span></div></li>
+          <li><b>02</b><div><strong>Make it yours</strong><span>Use the clean preview as your planning canvas.</span></div></li>
+          <li><b>03</b><div><strong>Take it offline</strong><span>Print it at home or download a paper-ready file.</span></div></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner"><span>© 2026 Calendar Forge</span><span><a href="#builder">Make a calendar</a> · <a href="mailto:hello@calendarforge.stream">Contact</a></span></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const holidays = {
+      us: {"2026-8-7":"Labor Day", "2026-9-12":"Columbus Day", "2026-10-11":"Veterans Day", "2026-10-26":"Thanksgiving"},
+      uk: {"2026-7-31":"Summer bank holiday", "2026-11-25":"Christmas Day", "2026-11-26":"Boxing Day"},
+      au: {"2026-10-5":"Labour Day", "2026-11-3":"Melbourne Cup", "2026-12-25":"Christmas Day"},
+      sg: {"2026-11-25":"Christmas Day"}
+    };
+    const regionNames = { us: "United States", uk: "United Kingdom", au: "Australia", sg: "Singapore" };
+    const monthEl = document.querySelector("#month");
+    const yearEl = document.querySelector("#year");
+    const regionEl = document.querySelector("#region");
+    const holidaysEl = document.querySelector("#holidays");
+    const gridEl = document.querySelector("#calendar-grid");
+    const titleEl = document.querySelector("#calendar-title");
+    const subtitleEl = document.querySelector("#calendar-subtitle");
+    const summaryEl = document.querySelector("#holiday-summary");
+    const toastEl = document.querySelector("#toast");
+
+    function key(year, month, day) { return `${year}-${month}-${day}`; }
+    function renderCalendar() {
+      const month = Number(monthEl.value);
+      const year = Number(yearEl.value);
+      const region = regionEl.value;
+      const first = new Date(year, month, 1).getDay();
+      const days = new Date(year, month + 1, 0).getDate();
+      const set = holidays[region] || {};
+      gridEl.innerHTML = weekdays.map(day => `<div class="weekday">${day}</div>`).join("");
+      for (let i = 0; i < first; i++) gridEl.insertAdjacentHTML("beforeend", `<div class="day empty" aria-hidden="true"></div>`);
+      const holidayLabels = [];
+      for (let day = 1; day <= days; day++) {
+        const holiday = holidaysEl.checked ? set[key(year, month, day)] : "";
+        if (holiday) holidayLabels.push(`${holiday} · ${monthNames[month].slice(0, 3)} ${day}`);
+        const now = new Date();
+        const isToday = year === now.getFullYear() && month === now.getMonth() && day === now.getDate();
+        gridEl.insertAdjacentHTML("beforeend", `<div class="day ${holiday ? "holiday" : ""} ${isToday ? "today" : ""}"><span class="day-number">${day}</span>${holiday ? `<span class="holiday-name">${holiday}</span>` : ""}</div>`);
+      }
+      const total = Math.ceil((first + days) / 7) * 7;
+      for (let i = first + days; i < total; i++) gridEl.insertAdjacentHTML("beforeend", `<div class="day empty" aria-hidden="true"></div>`);
+      titleEl.textContent = `${monthNames[month]} ${year}`;
+      subtitleEl.textContent = `${regionNames[region]} · Sunday start`;
+      summaryEl.textContent = holidayLabels.length ? holidayLabels.join(" · ") : "No public holidays shown";
+    }
+    function showToast(message) {
+      toastEl.textContent = message;
+      toastEl.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
+    }
+    function downloadCalendar() {
+      const text = `${titleEl.textContent}\n${subtitleEl.textContent}\n\n${Array.from(gridEl.querySelectorAll(".day")).map(cell => cell.textContent || " ").join(" | ")}\n\nGenerated by Calendar Forge`;
+      const blob = new Blob([text], {type: "text/plain"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${monthNames[Number(monthEl.value)].toLowerCase()}-${yearEl.value}-calendar.txt`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("Your calendar is ready to download.");
+    }
+    [monthEl, yearEl, regionEl, holidaysEl].forEach(input => input.addEventListener("change", renderCalendar));
+    document.querySelector("#download").addEventListener("click", downloadCalendar);
+    document.querySelector("#hero-print").addEventListener("click", () => { showToast("Opening print preview…"); setTimeout(() => window.print(), 300); });
+    renderCalendar();
+  </script>
+</body>
+</html>

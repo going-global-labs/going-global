@@ -1,0 +1,61 @@
+{
+  "organization": "going-global-labs",
+  "repository": "going-global",
+  "sites": [
+    {
+      "id": "calendar-forge",
+      "name": "Calendar Forge",
+      "path": "apps/calendar-forge",
+      "status": "staging",
+      "market": "global",
+      "productionDomain": "calendarforge.stream",
+      "deployment": "github-pages",
+      "workflow": ".github/workflows/deploy-calendar-forge.yml",
+      "coreAction": "calendar_download_or_print"
+    },
+    {
+      "id": "stackwise",
+      "name": "Stackwise",
+      "path": "apps/stackwise",
+      "status": "experiment",
+      "market": "en-US",
+      "productionDomain": null,
+      "deployment": "pending",
+      "workflow": null,
+      "coreAction": "tool_fit_view"
+    },
+    {
+      "id": "switchboard",
+      "name": "Switchboard",
+      "path": "apps/switchboard",
+      "status": "experiment",
+      "market": "en-US",
+      "productionDomain": null,
+      "deployment": "pending",
+      "workflow": null,
+      "coreAction": "device_recommendation"
+    },
+    {
+      "id": "costume-cartographer",
+      "name": "Costume Cartographer",
+      "path": "apps/costume-cartographer",
+      "status": "experiment",
+      "market": "en-US",
+      "productionDomain": null,
+      "deployment": "pending",
+      "workflow": null,
+      "coreAction": "costume_plan_generated"
+    },
+    {
+      "id": "matchday-clock",
+      "name": "Matchday Clock",
+      "path": "apps/matchday-clock",
+      "status": "experiment",
+      "market": "en-US",
+      "productionDomain": null,
+      "deployment": "pending",
+      "workflow": null,
+      "coreAction": "timezone_filter_used"
+    }
+  ]
+}
