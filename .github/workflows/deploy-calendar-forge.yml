@@ -1,0 +1,43 @@
+name: Deploy Calendar Forge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/calendar-forge/**"
+      - ".github/workflows/deploy-calendar-forge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: calendar-forge-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages-calendar-forge
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare Calendar Forge artifact
+        run: touch apps/calendar-forge/.nojekyll
+
+      - name: Upload Calendar Forge artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/calendar-forge
+
+      - name: Deploy Calendar Forge
+        id: deployment
+        uses: actions/deploy-pages@v4

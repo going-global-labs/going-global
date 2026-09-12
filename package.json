@@ -1,0 +1,15 @@
+{
+  "name": "going-global-labs",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A maintainable incubator monorepo for independent overseas site experiments.",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-sites.mjs",
+    "serve": "python3 -m http.server 4173 --directory apps",
+    "serve:calendar-forge": "python3 -m http.server 4173 --directory apps/calendar-forge"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
