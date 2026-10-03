@@ -5,12 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Free Printable Calendar Maker | Calendar Forge</title>
   <meta name="description" content="Create a free printable monthly calendar with regional public holidays. Print it or download an editable Word document in seconds.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.svg">
   <link rel="canonical" href="https://calendarforge.stream/">
   <meta name="theme-color" content="#f4f5f0">
   <meta property="og:title" content="Free Printable Calendar Maker | Calendar Forge">
   <meta property="og:description" content="Create a clean monthly calendar, then print it or download it as a Word document. No account needed.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://calendarforge.stream/">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Calendar Forge","url":"https://calendarforge.stream/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","description":"Create free printable monthly calendars with public holidays and download them as PDF or Word-compatible files."}
+  </script>
   <style>
     :root {
       --canvas: #f4f5f0;
@@ -245,6 +250,8 @@
       <nav class="nav" aria-label="Main navigation">
         <a href="#builder">Calendar maker</a>
         <a href="#how-it-works">How it works</a>
+        <a href="/2026-printable-calendar/">2026 calendars</a>
+        <a href="/2027-printable-calendar/">2027 calendars</a>
         <a class="nav-action" href="#builder">Create a calendar</a>
       </nav>
     </div>
@@ -259,14 +266,14 @@
         <div class="proof-row" aria-label="Product details">
           <span><i></i>No account needed</span>
           <span><i></i>Regional holidays</span>
-          <span><i></i>A4 and Letter ready</span>
+          <span><i></i>Print-ready layouts</span>
         </div>
       </div>
 
       <section class="builder" id="builder" aria-labelledby="builder-title">
         <div class="builder-bar">
           <strong id="builder-title">Build your monthly calendar</strong>
-          <small id="format-label">Print-ready preview</small>
+          <small id="format-label">A4 landscape preview</small>
         </div>
         <div class="builder-controls">
           <div class="field"><label for="month">Month</label><select id="month"></select></div>
@@ -306,16 +313,27 @@
         <li><b>03</b><div><strong>Print or open in Word</strong><span>Print to paper or save a Word document you can edit later.</span></div></li>
       </ol>
     </section>
+
+    <section class="support-band resource-band" aria-labelledby="resource-title">
+      <div><h2 id="resource-title">Printable calendar resources.</h2><p>Start with a ready-to-print yearly calendar, or open a specific month and download a stable PDF file.</p></div>
+      <ol class="support-list">
+        <li><b>2026</b><div><strong><a href="/2026-printable-calendar/">Printable calendar 2026</a></strong><span><a href="/2026-calendar-with-holidays/">With US holidays</a> · <a href="/2026-blank-calendar/">Blank version</a></span></div></li>
+        <li><b>2027</b><div><strong><a href="/2027-printable-calendar/">Printable calendar 2027</a></strong><span><a href="/2027-calendar-with-holidays/">With US holidays</a> · <a href="/2027-blank-calendar/">Blank version</a></span></div></li>
+      </ol>
+    </section>
   </main>
 
-  <footer class="footer"><div class="footer-inner"><span>© 2026 Calendar Forge</span><span><a href="#builder">Create a calendar</a> · <a href="mailto:hello@calendarforge.stream">Contact</a></span></div></footer>
+  <footer class="footer"><div class="footer-inner"><span>© 2026 Calendar Forge</span><span><a href="#builder">Create a calendar</a> · <a href="/2027-calendar-with-holidays/">Holiday calendars</a> · <a href="mailto:hello@calendarforge.stream">Contact</a></span></div></footer>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const holidays = {
-      us: {"2026-8-7": "Labor Day", "2026-9-12": "Columbus Day", "2026-10-11": "Veterans Day", "2026-10-26": "Thanksgiving"},
+      us: {
+        "2026-0-1": "New Year's Day", "2026-0-19": "Martin Luther King Jr. Day", "2026-1-16": "Washington's Birthday", "2026-4-25": "Memorial Day", "2026-5-19": "Juneteenth", "2026-6-3": "Independence Day (observed)", "2026-8-7": "Labor Day", "2026-9-12": "Columbus Day", "2026-10-11": "Veterans Day", "2026-10-26": "Thanksgiving", "2026-11-25": "Christmas Day",
+        "2027-0-1": "New Year's Day", "2027-0-18": "Martin Luther King Jr. Day", "2027-1-15": "Washington's Birthday", "2027-4-31": "Memorial Day", "2027-5-18": "Juneteenth (observed)", "2027-6-5": "Independence Day (observed)", "2027-8-6": "Labor Day", "2027-9-11": "Columbus Day", "2027-10-11": "Veterans Day", "2027-10-25": "Thanksgiving", "2027-11-24": "Christmas Day (observed)"
+      },
       uk: {"2026-7-31": "Summer bank holiday", "2026-11-25": "Christmas Day", "2026-11-26": "Boxing Day"},
       au: {"2026-10-5": "Labour Day", "2026-11-3": "Melbourne Cup", "2026-11-25": "Christmas Day"},
       sg: {"2026-11-25": "Christmas Day"}
@@ -343,9 +361,15 @@
     const now = new Date();
 
     function populateInputs() {
-      monthEl.innerHTML = monthNames.map((name, index) => `<option value="${index}" ${index === now.getMonth() ? "selected" : ""}>${name}</option>`).join("");
+      const params = new URLSearchParams(window.location.search);
+      const requestedYear = Number(params.get("year"));
+      const requestedMonth = Number(params.get("month"));
+      const selectedYear = Number.isInteger(requestedYear) && requestedYear >= 1900 && requestedYear <= 2100 ? requestedYear : now.getFullYear();
+      const selectedMonth = Number.isInteger(requestedMonth) && requestedMonth >= 0 && requestedMonth <= 11 ? requestedMonth : now.getMonth();
+      monthEl.innerHTML = monthNames.map((name, index) => `<option value="${index}" ${index === selectedMonth ? "selected" : ""}>${name}</option>`).join("");
       const startYear = now.getFullYear() - 1;
-      yearEl.innerHTML = Array.from({length: 8}, (_, index) => startYear + index).map(year => `<option ${year === now.getFullYear() ? "selected" : ""}>${year}</option>`).join("");
+      const years = Array.from(new Set([...Array.from({length: 8}, (_, index) => startYear + index), selectedYear])).sort((a, b) => a - b);
+      yearEl.innerHTML = years.map(year => `<option ${year === selectedYear ? "selected" : ""}>${year}</option>`).join("");
     }
     function dateKey(year, month, day) { return `${year}-${month}-${day}`; }
     function orderedWeekdays(start) { return weekdays.slice(start).concat(weekdays.slice(0, start)); }

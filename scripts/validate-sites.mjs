@@ -25,6 +25,30 @@ for (const site of manifest.sites) {
       const content = fs.readFileSync(path.join(appPath, file), "utf8");
       if (content.includes("calendarforge.example")) errors.push(`${site.id}: placeholder domain remains in ${file}`);
     }
+    for (const expectedPage of ["2026-printable-calendar/index.html", "2027-printable-calendar/index.html", "january-2026-calendar/index.html", "january-2027-calendar/index.html"]) {
+      if (!fs.existsSync(path.join(appPath, expectedPage))) errors.push(`${site.id}: missing generated SEO page ${expectedPage}`);
+    }
+    const sitemap = fs.readFileSync(path.join(appPath, "sitemap.xml"), "utf8");
+    if ((sitemap.match(/<loc>/g) || []).length < 30) errors.push(`${site.id}: sitemap contains fewer than 30 URLs`);
+    const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1].trim());
+    for (const url of sitemapUrls) {
+      try {
+        const parsed = new URL(url);
+        if (parsed.origin !== `https://${site.productionDomain}`) {
+          errors.push(`${site.id}: sitemap URL uses the wrong origin: ${url}`);
+          continue;
+        }
+        const relativePath = decodeURIComponent(parsed.pathname).replace(/^\/+|\/+$/g, "");
+        const filePath = relativePath
+          ? path.join(appPath, relativePath, "index.html")
+          : path.join(appPath, "index.html");
+        if (!fs.existsSync(filePath)) errors.push(`${site.id}: sitemap URL has no matching file: ${url}`);
+      } catch {
+        errors.push(`${site.id}: sitemap contains an invalid URL: ${url}`);
+      }
+    }
+    if (!fs.existsSync(path.join(appPath, "downloads", "2026", "2026-printable-calendar-a4.pdf"))) errors.push(`${site.id}: missing generated 2026 PDF`);
+    if (!fs.existsSync(path.join(appPath, "downloads", "2027", "2027-printable-calendar-a4.pdf"))) errors.push(`${site.id}: missing generated 2027 PDF`);
   }
 }
 
@@ -32,7 +56,7 @@ const workflow = path.join(root, ".github", "workflows", "deploy-calendar-forge.
 if (!fs.existsSync(workflow)) errors.push("calendar-forge: missing dedicated deployment workflow");
 else {
   const workflowText = fs.readFileSync(workflow, "utf8");
-  for (const expected of ["apps/calendar-forge/**", "path: apps/calendar-forge", "actions/deploy-pages@v4"]) {
+  for (const expected of ["apps/calendar-forge/**", "node scripts/generate-calendar-seo-pages.mjs", "node scripts/validate-sites.mjs", "path: apps/calendar-forge", "actions/deploy-pages@v4"]) {
     if (!workflowText.includes(expected)) errors.push(`deploy-calendar-forge.yml: missing ${expected}`);
   }
 }

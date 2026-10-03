@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "apps/calendar-forge/**"
+      - "scripts/generate-calendar-seo-pages.mjs"
       - ".github/workflows/deploy-calendar-forge.yml"
   workflow_dispatch:
 
@@ -29,6 +30,12 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
+      - name: Generate Calendar Forge SEO pages and downloads
+        run: node scripts/generate-calendar-seo-pages.mjs
+
+      - name: Validate Calendar Forge artifact
+        run: node scripts/validate-sites.mjs
 
       - name: Prepare Calendar Forge artifact
         run: touch apps/calendar-forge/.nojekyll
